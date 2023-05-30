@@ -1,0 +1,36 @@
+personal_notes.md
+
+# Ignore the config.json file
+config.json 
+
+# Python specific
+
+__pycache__/
+*.pyc       
+*.pyo       
+*.pyd       
+*.pyz       
+*.pyzw      
+
+# Virtual environment
+
+# Ignore the virtual environment directory
+myenv/               
+
+# Editor and IDE specific
+
+.vscode/        
+*.code-workspace
+
+# Dependency management
+
+pip-wheel-metadata/
+pip-compile.txt    
+
+# Other
+
+.DS_Store
+*.swp    
+*.swo    
+*.log    
+*.tmp    
