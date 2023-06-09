@@ -1,35 +1,35 @@
+import nextcord
+from nextcord import Interaction
+from nextcord.ext import commands
+import os
 import json
-import discord
-from discord.ext import commands
-from discord import Client
 
 # handle tokens
 with open('./data/config.json') as config_file:
     config = json.load(config_file)
 
+intents = nextcord.Intents.default()
+intents.members = True
 
-atandil_token = config['bot_token']
+client = commands.Bot(command_prefix = '$', intents=intents)
 
-intents = discord.Intents.default()
-intents.message_content = True
 
-atandil = Client(intents=intents)
-
-@atandil.event
+@client.event
 async def on_ready():
-    print(f'We have logged in as {atandil.user}')
+    print("The bot is now ready for use!")
+    print("-----------------------------")
 
-@atandil.event
-async def on_message(message):
-    if message.author == atandil.user:
-        return
-    if message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
+token = config['bot_token']
+test_server_id = 820053634598567984
 
-# atandil = commands.Bot(command_prefix='!')
+initial_extensions = []
 
-# @bot.command()
-# async def ping(ctx):
-#     await ctx.send("Pong!")
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        initial_extensions.append("cogs." + filename[:-3])
 
-atandil.run(atandil_token)
+if __name__ == '__main__':
+    for extension in initial_extensions:
+        client.load_extension(extension)
+
+client.run(token)
